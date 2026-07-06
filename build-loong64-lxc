@@ -6,10 +6,10 @@ shift
 SERIAL=$(date -u +%Y%m%d_%H:%M)
 
 pushd build
-distrobuilder build-dir ${YAML} rootfs \
+distrobuilder --cache-dir cache build-dir ${YAML} rootfs \
     -o image.serial="${SERIAL}" \
     "$@"
-distrobuilder pack-lxc ${YAML} rootfs \
+distrobuilder --cache-dir cache pack-lxc ${YAML} rootfs \
     -o image.serial="${SERIAL}" \
     "$@"
 popd
