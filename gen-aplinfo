@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+DISTRO=${1}
+shift
+RELEASE=${1}
+shift
+BUILD_DATE=${1}
+shift
+OUTDIR=${1}
+shift
+TARBALL=${1}
+shift
+APLINFO=${1}
+shift
+
+md5=($(md5sum ${OUTDIR}/${TARBALL}))
+sha512=($(sha512sum ${OUTDIR}/${TARBALL}))
+
+cat << EOF > ${APLINFO}
+Package: ${DISTRO}-${RELEASE}-default
+Version: ${BUILD_DATE}
+Type: lxc
+OS: ${DISTRO}
+Section: system
+Maintainer: Proxmox VE Loong64 <wukaiyang@loongfans.cn>
+Architecture: loong64
+Location: system/${TARBALL}
+md5sum: ${md5}
+sha512sum: ${sha512}
+Infopage: https://pve.loongfans.cn
+Description: LXC default image for ${DISTRO} ${RELEASE} (${BUILD_DATE})
+
+EOF

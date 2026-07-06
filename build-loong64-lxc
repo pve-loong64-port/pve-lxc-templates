@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+YAML=${1}
+shift
+
+SERIAL=$(date -u +%Y%m%d_%H:%M)
+
+pushd build
+distrobuilder build-dir ${YAML} rootfs \
+    -o image.serial="${SERIAL}" \
+    -o image.variant=default \
+    "$@"
+distrobuilder pack-lxc ${YAML} rootfs \
+    -o image.serial="${SERIAL}" \
+    -o image.variant=default \
+    "$@"
+popd
