@@ -1,8 +1,11 @@
 GENTOO_RELEASE = current
 GENTOO_TARGET = gentoo-$(GENTOO_RELEASE)-openrc_$(BUILD_DATE)_loong64
 
-$(OUT_DIR)/$(GENTOO_TARGET).tar.xz: | $(BUILD_DIR) $(OUT_DIR)
+$(OUT_DIR)/$(GENTOO_TARGET).tar.xz: BUILD_DIR := $(BUILD_DIR)/gentoo
+$(OUT_DIR)/$(GENTOO_TARGET).tar.xz: | $(OUT_DIR)
+	mkdir -pv $(BUILD_DIR)
 	./build-loong64-lxc $(CURDIR)/lxc-ci/images/gentoo.yaml \
+		$(BUILD_DIR) \
 		-o source.variant=openrc \
 		-o image.variant=openrc \
 		-o image.architecture=loongarch64

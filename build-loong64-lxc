@@ -2,10 +2,12 @@
 
 YAML=${1}
 shift
+BUILD_DIR=${1}
+shift
 
 SERIAL=$(date -u +%Y%m%d_%H:%M)
 
-pushd build
+pushd ${BUILD_DIR}
 distrobuilder --cache-dir cache build-dir ${YAML} rootfs \
     -o image.serial="${SERIAL}" \
     "$@"

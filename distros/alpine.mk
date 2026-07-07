@@ -1,8 +1,11 @@
 ALPINE_RELEASE = 3.24
 ALPINE_TARGET = alpine-$(ALPINE_RELEASE)-default_$(BUILD_DATE)_loong64
 
-$(OUT_DIR)/$(ALPINE_TARGET).tar.xz: | $(BUILD_DIR) $(OUT_DIR)
+$(OUT_DIR)/$(ALPINE_TARGET).tar.xz: BUILD_DIR := $(BUILD_DIR)/alpine
+$(OUT_DIR)/$(ALPINE_TARGET).tar.xz: | $(OUT_DIR)
+	mkdir -pv $(BUILD_DIR)
 	./build-loong64-lxc $(CURDIR)/lxc-ci/images/alpine.yaml \
+		$(BUILD_DIR) \
 		-o image.release=$(ALPINE_RELEASE) \
 		-o image.variant=default \
 		-o image.architecture=loongarch64
