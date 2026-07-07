@@ -4,7 +4,7 @@ BUILD_DIR := build
 OUT_DIR := out
 
 .PHONY: all
-all: alpine gentoo openeuler
+all: alpine alt gentoo openeuler
 
 .PHONY: clean
 clean:
